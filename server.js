@@ -23,3 +23,10 @@ io.sockets.on('connection', function (socket) {
   console.log('SERVER::WE ARE USING SOCKETS!');
   console.log(socket.id);
 });
+
+socket.on("javascript", function(data) {
+  console.log("a vote for javascript");
+});
+socket.on("swift", function(data) {
+  console.log("a vote for swift");
+});
