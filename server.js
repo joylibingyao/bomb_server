@@ -30,3 +30,12 @@ socket.on("javascript", function(data) {
 socket.on("swift", function(data) {
   console.log("a vote for swift");
 });
+
+socket.on("javascript", function(data) {
+  console.log("a vote for javascript");
+  io.sockets.emit("update_javascript");
+});
+socket.on("swift", function(data) {
+  console.log("a vote for swift");
+  io.sockets.emit("update_swift");
+});

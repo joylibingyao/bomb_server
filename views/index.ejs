@@ -9,6 +9,14 @@
             socket.on('connect', function (data) {
               console.log('BROWSER::WE ARE USING SOCKETS!');
             })
+
+            socket.on('update_javascript', function(data) {
+              console.log('update_javascript');
+            })
+
+            socket?.on('update_swift', function(data) {
+              console.log('update_swift');
+            })
         })
     </script>
   </head>
