@@ -13,6 +13,10 @@ app.get('/', function(req, res) {
  res.render('index');
 });
 
+var javascriptVotes = 0
+var swiftVotes = 0 
+
+
 var server = app.listen(app.get('port'), function() {
   console.log('listening on port', app.get('port'));
 });
@@ -25,12 +29,13 @@ io.sockets.on('connection', function (socket) {
 
   socket.on("javascript", function(data) {
   console.log("a vote for javascript");
+  javascriptVotes += 1
   io.sockets.emit("update_javascript");
 	});
 
 	socket.on("swift", function(data) {
   console.log("a vote for swift");
-  
+  swiftVotes += 1
   io.sockets.emit("update_swift");
 	});
 
