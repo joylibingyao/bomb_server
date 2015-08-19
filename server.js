@@ -22,20 +22,28 @@ var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
   console.log('SERVER::WE ARE USING SOCKETS!');
   console.log(socket.id);
-});
 
-socket.on("javascript", function(data) {
-  console.log("a vote for javascript");
-});
-socket.on("swift", function(data) {
-  console.log("a vote for swift");
-});
-
-socket.on("javascript", function(data) {
+  socket.on("javascript", function(data) {
   console.log("a vote for javascript");
   io.sockets.emit("update_javascript");
-});
-socket.on("swift", function(data) {
+	});
+
+	socket.on("swift", function(data) {
   console.log("a vote for swift");
+  
   io.sockets.emit("update_swift");
+	});
+
+
+
 });
+
+// socket.on("javascript", function(data) {
+//   console.log("a vote for javascript");
+// });
+
+// socket.on("swift", function(data) {
+//   console.log("a vote for swift");
+// });
+
+
