@@ -44,4 +44,14 @@ io.sockets.on('connection', function (socket) {
         });
     });
 
+socket.on("bomb", function(data) {
+        console.log("a vote for swift");
+        x = data.x
+        y = data.y
+        console.log(x,y);
+        io.sockets.emit("update_bomb", {
+            bomb: bomb
+        });
+    });
+
 });
