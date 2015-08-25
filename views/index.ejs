@@ -23,18 +23,6 @@
               console.log('BROWSER::WE ARE USING SOCKETS!');
             })
 
-            socket.on('update_javascript', function(data) {
-              console.log(data.javascriptVotes)
-              console.log('update_javascript');
-              $("p#javascript").text(data.javascriptVotes);
-            })
-
-            socket.on('update_swift', function(data) {
-              console.log(data.swiftVotes)
-              console.log('update_swift');
-              $("p#swift").text(data.swiftVotes);
-            })
-
             socket.on('bomb', function(data) {
               console.log(data)
               console.log('bomb');

@@ -7,21 +7,22 @@ app.use(express.static(path.join(__dirname, './static')));
 app.use(bodyParser.urlencoded());
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
-app.set('port', (process.env.PORT || 5001));
+app.set('port', (process.env.PORT || 5008));
 
 app.get('/', function(req, res) {
     res.render('index');
 });
+require('./config/mongoose.js');
+// Connecting with mongoose
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
-var javascriptVotes = 0
-var swiftVotes = 0
+
 var bomb = 0 
 
 var arr = []
 var bombloc = {lat: 37.377063618076384, lon: -121.91212448302834
 }
-
-
 
 
 var server = app.listen(app.get('port'), function() {
@@ -31,26 +32,9 @@ var server = app.listen(app.get('port'), function() {
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function (socket) {
-    console.log('SERVER::WE ARE USING SOCKETS!');
+    console.log('SERVER::WE ARE USING SOCKETS!!!!!');
     console.log(socket.id);
 
-    socket.on("javascript", function(data) {
-    console.log("a vote for javascript");
-        javascriptVotes += 1
-        console.log(javascriptVotes);
-    io.sockets.emit("update_javascript", {
-            javascriptVotes: javascriptVotes
-        });
-    });
-
-    socket.on("swift", function(data) {
-        console.log("a vote for swift");
-        swiftVotes += 1
-        console.log(swiftVotes);
-        io.sockets.emit("update_swift", {
-            swiftVotes: swiftVotes
-        });
-    });
 
 	socket.on("bomb", function(data) {
         console.log("bomb2");
@@ -71,5 +55,32 @@ io.sockets.on('connection', function (socket) {
 			console.log("U r bombed")
 		};
     });
+
+	socket.on("startGame", function(data) {
+		console.log("startGame");
+		console.log(data)
+		io.emit("geolocation", {
+			name: name,
+			lat: lat,
+			lon: lon
+		})
+	})
+
+	socket.on("name", function(data) {
+		console.log(data)
+		io.emit("name", {
+			name: name
+		})
+	})	
+
+	socket.on("status", function(data) {
+		console.log(data)
+		io.emit("status", {
+			name: name
+		})
+
+	})
+
+
 
 });
