@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <style>
+
+    body {
+    background-image: url("bg.png");
+    background-color: #cccccc;
+    font: #FFFFFF;
+}
+
+    #bomb {
+      color: white;
+      font-size: 100px;
+    }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type ="text/javascript">
@@ -21,13 +34,26 @@
               console.log('update_swift');
               $("p#swift").text(data.swiftVotes);
             })
+
+            socket.on('bomb', function(data) {
+              console.log(data)
+              console.log('bomb');
+              $("p#bomb").text("BOMB!!");
+            })
+
         })
     </script>
   </head>
-  <body>
-    <h2>JavaScript</h2>
+  <body >
+<!--     <h2>JavaScript</h2>
     <p id="javascript">0</p>
     <h1>Swift</h1>
-    <p id="swift">0</p>
+    <p id="swift">0</p> -->
+
+
+
+    <br><br><br><br><br><br><br><br><br><br><br>
+        <h1>Bomb</h1>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p id="bomb">0</p>
   </body>
 </html>

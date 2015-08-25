@@ -15,6 +15,18 @@ app.get('/', function(req, res) {
 
 var javascriptVotes = 0
 var swiftVotes = 0
+var bomb = 0 
+
+var arr = []
+var bombloc = {lat: 37.377063618076384, lon: -121.91212448302834
+}
+
+
+// 1 * Math.acos(
+//         Math.sin(latitude1) * Math.sin(latitude2)
+//         + Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(longitude2 - longitude1));
+
+
 
 var server = app.listen(app.get('port'), function() {
     console.log('listening on port', app.get('port'));
@@ -44,14 +56,24 @@ io.sockets.on('connection', function (socket) {
         });
     });
 
-socket.on("bomb", function(data) {
-        console.log("a vote for swift");
+	socket.on("bomb", function(data) {
+        console.log("bomb2");
         x = data.x
         y = data.y
         console.log(x,y);
-        io.sockets.emit("update_bomb", {
-            bomb: bomb
+        io.sockets.emit("bomb", {
+            x: x, y: y
         });
+	
+		var distance
+		var ho=Math.pow((x-bombloc.lat),2)
+		var ver= Math.pow((y-bombloc.lon),2)
+		distance = Math.sqrt(ho+ver)
+		console.log(distance)
+		if (distance < 0.00007) {
+			bomb = true
+			console.log("U r bombed")
+		};
     });
 
 });
