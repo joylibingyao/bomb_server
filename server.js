@@ -7,7 +7,7 @@ app.use(express.static(path.join(__dirname, './static')));
 app.use(bodyParser.urlencoded());
 app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 5001));
 
 app.get('/', function(req, res) {
     res.render('index');
@@ -21,10 +21,6 @@ var arr = []
 var bombloc = {lat: 37.377063618076384, lon: -121.91212448302834
 }
 
-
-// 1 * Math.acos(
-//         Math.sin(latitude1) * Math.sin(latitude2)
-//         + Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(longitude2 - longitude1));
 
 
 
