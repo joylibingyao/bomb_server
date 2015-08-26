@@ -105,7 +105,7 @@ io.sockets.on('connection', function (socket)
 			if(err) {
 				console.log(err);
 			} else {
-				console.log(results[0].score,"this is result");
+				// console.log(results[0].score,"this is result");
 				io.emit("bombAdded",results[0].score)
 			}
 		});
@@ -113,16 +113,35 @@ io.sockets.on('connection', function (socket)
     });
 
 	//next event
-	// socket.on("check", function(data) 
-	// {
-	// 	// console.log("keeping checking");
-	// 	for (var i = 0; i < all.length; i++) {
-	// 		for (var i = 0; i < all[i].length; i++) {
-	// 			console.log(all[i][i]);
-	// 		};
-	// 	};
+	socket.on("check", function(data) 
+	{
+		console.log(data,"hi");
+		for (var i = 0; i < 2; i++) {
+			// console.log(all[i].bombs);
+			for (var j = 0; j < all[i].bombs.length; j++) {
+				// console.log(all[i].bombs[j]);
+				var bombloc = all[i].bombs[j]
+				var distance
+				var ho=Math.pow((data.lat-bombloc.lat),2)
+				var ver= Math.pow((data.lon-bombloc.lon),2)
+				distance = Math.sqrt(ho+ver)
+				console.log(distance)
 
-	// })
+				if (distance < 0.00007) 
+				{
+					console.log("U r bombed")
+					io.emit("getBombed","bombed")
+					User.remove({_id:bombloc.id},function(err,results){
+						console.log("destroyed bomb");
+					})
+					return true
+				};
+			};
+
+		};
+
+
+	})
 	//next event
 	socket.on("status", function(data) 
 	{
